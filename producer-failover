@@ -210,6 +210,18 @@ then
 cat > "$backup_failover_script_path" << 'DOC'
 #!/usr/bin/env bash
 
+shutdown() {
+remnode_pid=$(pgrep remnode)
+if [ ! -z "$remnode_pid" ]; then
+if ps -p $remnode_pid > /dev/null; then
+kill -SIGINT $remnode_pid
+fi
+while ps -p $remnode_pid > /dev/null; do
+sleep 1
+done
+fi
+}
+
 #----------------------------------------------------------------------------------------------------#
 # UNREGISTER AND REGISTER AS A BLOCK PRODUCER AGAIN                                                  #
 #----------------------------------------------------------------------------------------------------#
@@ -217,6 +229,8 @@ cat > "$backup_failover_script_path" << 'DOC'
 remcli wallet unlock --password $walletpass 2>&1
 remcli system unregprod $owneraccountname -p $owneraccountname@$producerpermission
 remcli system regproducer $owneraccountname $producerpublickey -x 120 -p $owneraccountname@$producerpermission
+sudo remnode --config-dir ./config/ --data-dir ./data/ --fix-reversible-blocks --force-all-checks
+
 DOC
   chmod u+x "$backup_failover_script_path"
 fi
