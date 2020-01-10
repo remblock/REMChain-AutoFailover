@@ -216,7 +216,7 @@ cat > "$backup_failover_script_path" << 'DOC'
 
 remcli wallet unlock --password $walletpass 2>&1
 remcli system unregprod $owneraccountname -p $owneraccountname@$producerpermission
-remcli system regproducer $owneraccountname $producerpublickey -x 120 -p $owneraccountname@producerpermission
+remcli system regproducer $owneraccountname $producerpublickey -x 120 -p $owneraccountname@$producerpermission
 DOC
   chmod u+x "$backup_failover_script_path"
 fi
