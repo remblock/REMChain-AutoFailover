@@ -137,9 +137,9 @@ fi
 
 if get_config_value producerpublickey
 then
-  producerpermission="$global_value"
+  producerpublickey="$global_value"
 else
-  read -p "ENTER YOUR PRODUCER PUBLIC KEY: " -e producerpermission
+  read -p "ENTER YOUR PRODUCER PUBLIC KEY: " -e producerpublickey
   echo "producerpublickey=$producerpublickey" >> "$config_file"
   echo ""
 fi
