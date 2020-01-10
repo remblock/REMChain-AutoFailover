@@ -210,18 +210,6 @@ then
 cat > "$backup_failover_script_path" << 'DOC'
 #!/usr/bin/env bash
 
-shutdown() {
-remnode_pid=$(pgrep remnode)
-if [ ! -z "$remnode_pid" ]; then
-if ps -p $remnode_pid > /dev/null; then
-kill -SIGINT $remnode_pid
-fi
-while ps -p $remnode_pid > /dev/null; do
-sleep 1
-done
-fi
-}
-
 #----------------------------------------------------------------------------------------------------#
 # UNREGISTER AND REGISTER AS A BLOCK PRODUCER AGAIN                                                  #
 #----------------------------------------------------------------------------------------------------#
