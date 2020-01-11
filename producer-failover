@@ -215,7 +215,6 @@ cat > "$backup_failover_script_path" << 'DOC'
 #----------------------------------------------------------------------------------------------------#
 
 remcli wallet unlock --password $walletpass 2>&1
-remcli system unregprod $accountname -p $accountname@$producerpermission
 remcli system regproducer $accountname $producerpublickey -x 120 -p $accountname@$producerpermission
 sudo remnode --config-dir ./config/ --data-dir ./data/ --fix-reversible-blocks --force-all-checks
 
