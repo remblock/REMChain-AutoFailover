@@ -214,7 +214,7 @@ cat > "$backup_failover_script_path" << 'DOC'
 # UNREGISTER AND REGISTER AS A BLOCK PRODUCER AGAIN                                                  #
 #----------------------------------------------------------------------------------------------------#
 
-remcli wallet unlock --password $walletpass 2>&1
+remcli wallet unlock --password $walletpass > /dev/null 2>&1
 remcli system regproducer $accountname $producerpublickey -x 120 -p $accountname@$producerpermission
 sudo remnode --config-dir ./config/ --data-dir ./data/ --fix-reversible-blocks --force-all-checks
 
