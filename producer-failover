@@ -140,6 +140,11 @@ else
   echo "producerpermission=$producerpermission" >> "$config_file"
 fi
 
+if  [ -z "$producerpermission" ]
+then
+  sed -i "/^producerpermission= /s/producerpermission=owner //" $config_file
+fi
+
 #----------------------------------------------------------------------------------------------------#
 # GET CONFIG PRODUCER PUBLIC KEY IF NOT ALREADY ON THE CONFIG FILE                                   #
 #----------------------------------------------------------------------------------------------------#
