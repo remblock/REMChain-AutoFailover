@@ -12,7 +12,7 @@ sudo wget https://github.com/remblock/REMChain-AutoFailover/raw/master/autp-prod
 
 ***
 
-## Edit Producer Failover Config:
+## Edit Auto-Producer Failover Config:
 
 ```
 nano remblock/autp-producer-failover/config
@@ -28,7 +28,7 @@ sudo wget https://github.com/remblock/REMChain-AutoFailover/raw/master/auto-back
 
 ***
 
-## Edit Backup Failover Config:
+## Edit Auto-Backup Failover Config:
 
 ```
 nano remblock/auto-backup-failover/config
