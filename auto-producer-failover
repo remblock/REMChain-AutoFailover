@@ -19,12 +19,12 @@ fi
 # CONFIGURATION VARIABLES                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
-create_dir="/root/remblock/auto-failover"
-config_file="/root/remblock/auto-failover/config"
-backup_failover_script_path="/root/remblock/auto-failover/bp-failover"
+create_dir="/root/remblock/auto-producer-failover"
+config_file="/root/remblock/auto-producer-failover/config"
+backup_failover_script_path="/root/remblock/auto-producer-failover/bp-failover"
 #PATH to used commands
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
-cron_cmd="/root/remblock/auto-failover/auto-producer-failover"
+cron_cmd="/root/remblock/auto-producer-failover/auto-producer-failover"
 now_epoch="$(date +%s)"
 
 #----------------------------------------------------------------------------------------------------#
