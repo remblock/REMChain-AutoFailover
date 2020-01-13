@@ -18,12 +18,12 @@ fi
 # CONFIGURATION VARIABLES                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
-create_dir="/root/remblock/auto-failover"
-config_file="/root/remblock/auto-failover/config"
-backup_failover_script_path="/root/remblock/auto-failover/bp-failover"
+create_dir="/root/remblock/auto-backup-failover"
+config_file="/root/remblock/auto-backup-failover/config"
+backup_failover_script_path="/root/remblock/auto-backup-failover/bp-failover"
 #PATH to used commands
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
-cron_cmd="/root/remblock/auto-failover/producer-backup-failover"
+cron_cmd="/root/remblock/auto-backup-failover/auto-backup-failover"
 now_epoch="$(date +%s)"
 
 #----------------------------------------------------------------------------------------------------#
@@ -263,7 +263,7 @@ cat > "$backup_failover_script_path" << 'DOC'
 #!/usr/bin/env bash
 
 #----------------------------------------------------------------------------------------------------#
-# UNREGISTER AND REGISTER AS A BLOCK PRODUCER AGAIN                                                  #
+# REGISTER AS A BLOCK PRODUCER AGAIN USING YOUR BACKUP KEYS                                          #
 #----------------------------------------------------------------------------------------------------#
 
 remcli wallet unlock --password $walletpass > /dev/null 2>&1
