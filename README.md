@@ -7,7 +7,7 @@
 ### Setup Auto-Producer-Failover:
 
 ```
-sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/autp-producer-failover && sudo chmod u+x autp-producer-failover && sudo ./autp-producer-failover
+sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/auto-producer-failover && sudo chmod u+x auto-producer-failover && sudo ./auto-producer-failover
 ```
 
 ***
