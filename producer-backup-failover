@@ -23,7 +23,7 @@ config_file="/root/remblock/auto-failover/config"
 backup_failover_script_path="/root/remblock/auto-failover/bp-failover"
 #PATH to used commands
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
-cron_cmd="/root/remblock/auto-failover/producer-failover"
+cron_cmd="/root/remblock/auto-failover/producer-backup-failover"
 now_epoch="$(date +%s)"
 
 #----------------------------------------------------------------------------------------------------#
@@ -45,7 +45,6 @@ then
   echo "#Configuration file for the failover script" > "$config_file"
   echo "#Make the entries as variable=value" >> "$config_file"
   echo " " >> "$config_file"
-  echo 'bpm_check_produce_minutes=5' >> "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
