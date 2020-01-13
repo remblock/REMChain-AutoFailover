@@ -57,7 +57,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# GET YES OR NO ANSWER FROM USER                                                                     #
+# RETRIEVE YES OR NO ANSWER FROM THE USER                                                            #
 #----------------------------------------------------------------------------------------------------#
 
 function get_user_answer_yn(){
@@ -74,7 +74,7 @@ function get_user_answer_yn(){
 }
 
 #----------------------------------------------------------------------------------------------------#
-# GET VALUE FROM THE CONFIG FILE, RETURN IT WITH THE VARIABLE "global_value"                         #
+# RETRIEVE VALUE FROM THE CONFIG FILE, RETURN IT WITH THE VARIABLE "global_value"                    #
 #----------------------------------------------------------------------------------------------------#
 
 function get_config_value() {
@@ -92,7 +92,7 @@ function get_config_value() {
 #****************************************************************************************************#
 
 #----------------------------------------------------------------------------------------------------#
-# RETRIEVE PRODUCER NAME IF NOT ALREADY SET ON THE CONFIG FILE                                       #
+# RETRIEVE PRODUCER NAME IF NOT ALREADY SET IN THE CONFIG FILE                                       #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value accountname
@@ -108,7 +108,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# RETRIEVE WALLET PASSWORD IF NOT ALREADY SET ON THE CONFIG FILE                                     #
+# RETRIEVE WALLET PASSWORD IF NOT ALREADY SET IN THE CONFIG FILE                                     #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value walletpass
@@ -124,7 +124,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# RETRIEVE ACTIVE PRODUCER PUBLIC KEY IF NOT ALREADY SET ON THE CONFIG FILE                          #
+# RETRIEVE ACTIVE PRODUCER PUBLIC KEY IF NOT ALREADY SET IN THE CONFIG FILE                          #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value activeproducerpublickey
@@ -141,7 +141,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# RETRIEVE PERMISSION IF NOT ALREADY SET ON THE CONFIG FILE                                          #
+# RETRIEVE PERMISSION IF NOT ALREADY SET IN THE CONFIG FILE                                          #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value producerpermission
@@ -157,7 +157,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# RETRIEVE CONFIG PRODUCER PUBLIC KEY IF NOT ALREADY SET ON THE CONFIG FILE                          #
+# RETRIEVE CONFIG PRODUCER PUBLIC KEY IF NOT ALREADY SET IN THE CONFIG FILE                          #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value configproducerpublickey
@@ -174,7 +174,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# RETRIEVE TELEGRAM DATA IF NOT ALREADY SET ON THE CONFIG FILE                                       #
+# RETRIEVE TELEGRAM DATA IF NOT ALREADY SET IN THE CONFIG FILE                                       #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value telegram_enabled
