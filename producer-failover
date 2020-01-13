@@ -199,7 +199,7 @@ else
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# GET BP MONITOR REMNODE VALUES IF NOT SET IN THE CONFIG FILE                                        #
+# USER BLOCK MINUTE VALUE IF NOT SET IN THE CONFIG FILE                                              #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value check_last_block_minutes
@@ -211,7 +211,7 @@ else
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# GET BP MONITOR REMNODE VALUES IF NOT SET IN THE CONFIG FILE                                        #
+# USER HEAD BLOCK MINUTE VALUE IF NOT SET IN THE CONFIG FILE                                         #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value check_last_head_block_minutes
@@ -305,9 +305,10 @@ if [ ! -f "$create_dir/last_check_epoch.txt" ]
 then
   echo $now_epoch > "$create_dir/last_check_epoch.txt"
 else
-  config_minutes_in_seconds="$((bpm_check_produce_minutes * 60))"
+  last_block_minutes_in_seconds="$((check_last_block_minutes * 60))"
+  last_head_block_minutes_in_seconds="$((check_last_head_block_minutes * 60))"
   last_check_epoch=$(cat "$create_dir/last_check_epoch.txt")
-  if (( ($now_epoch - $last_check_epoch) >= $config_minutes_in_seconds ))
+  if (( ($now_epoch - $last_block_epoch) >= $last_block_minutes_in_seconds )) && (( ($now_epoch - $last_head_block_epoch) <= $last_head_block_minutes_in_seconds )) && (( $configproducerpublickey != $activeproducerpublickey ))
   then
     echo $now_epoch > "$create_dir/last_check_epoch.txt"
     check_produce_minutes
