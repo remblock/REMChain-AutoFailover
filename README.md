@@ -1,6 +1,6 @@
 # REMChain-Automated-Failover
 
-#### These scripts will help failover a block producer, if they failed to produce blocks by a certain number of minutes.
+#### These scripts will help a block producer perform a failover, in the event they fail to produce blocks within a specified timeframe.
 
 ***
 
