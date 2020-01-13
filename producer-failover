@@ -354,7 +354,7 @@ else
   last_block_minutes_in_seconds="$((check_last_block_minutes * 60))"
   last_head_block_minutes_in_seconds="$((check_last_head_block_minutes * 60))"
   last_check_epoch=$(cat "$create_dir/last_check_epoch.txt")
-  if (( ($now_epoch - $last_block_epoch) >= $last_block_minutes_in_seconds )) && (( ($now_epoch - $last_head_block_epoch) <= $last_head_block_minutes_in_seconds )) && (( $configproducerpublickey != $activeproducerpublickey ))
+  if (( ($now_epoch - $last_block_epoch) >= $last_block_minutes_in_seconds )) && (( ($now_epoch - $last_head_block_epoch) <= $last_head_block_minutes_in_seconds )) && (( $activeproducerpublickey == $backupproducerpublickey ))
   then
     echo $now_epoch > "$create_dir/last_check_epoch.txt"
     check_produce_minutes
