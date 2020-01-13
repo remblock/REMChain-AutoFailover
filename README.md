@@ -1,4 +1,4 @@
-# REMChain-AutoFailover
+# REMChain-Automated-Failover
 
 #### These scripts will help failover a block producer, if they failed to produce blocks by a certain number of minutes.
 
@@ -7,7 +7,7 @@
 ## Setup Auto-Producer-Failover:
 
 ```
-sudo wget https://github.com/remblock/REMChain-AutoFailover/raw/master/autp-producer-failover && sudo chmod u+x autp-producer-failover && sudo ./autp-producer-failover
+sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/autp-producer-failover && sudo chmod u+x autp-producer-failover && sudo ./autp-producer-failover
 ```
 
 ***
@@ -23,7 +23,7 @@ nano remblock/auto-producer-failover/config
 ## Setup Auto-Backup-Failover:
 
 ```
-sudo wget https://github.com/remblock/REMChain-AutoFailover/raw/master/auto-backup-failover && sudo chmod u+x auto-backup-failover && sudo ./auto-backup-failover
+sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/auto-backup-failover && sudo chmod u+x auto-backup-failover && sudo ./auto-backup-failover
 ```
 
 ***
