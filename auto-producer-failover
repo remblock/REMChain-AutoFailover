@@ -24,7 +24,7 @@ config_file="/root/remblock/auto-failover/config"
 backup_failover_script_path="/root/remblock/auto-failover/bp-failover"
 #PATH to used commands
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
-cron_cmd="/root/remblock/auto-failover/producer-failover"
+cron_cmd="/root/remblock/auto-failover/auto-producer-failover"
 now_epoch="$(date +%s)"
 
 #----------------------------------------------------------------------------------------------------#
@@ -279,9 +279,11 @@ if [ ! -f "$backup_failover_script_path" ]
 then
 cat > "$backup_failover_script_path" << 'DOC'
 #!/usr/bin/env bash
+
 #----------------------------------------------------------------------------------------------------#
-# UNREGISTER AND REGISTER AS A BLOCK PRODUCER AGAIN                                                  #
+# REGISTER AS A BLOCK PRODUCER AGAIN USING YOUR BACKUP KEYS                                          #
 #----------------------------------------------------------------------------------------------------#
+
 remcli wallet unlock --password $walletpass > /dev/null 2>&1
 remcli system regproducer $accountname $configproducerpublickey -x 120 -p $accountname@$producerpermission
 sudo remnode --config-dir ./config/ --data-dir ./data/ --fix-reversible-blocks --force-all-checks
