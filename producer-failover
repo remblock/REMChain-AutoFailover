@@ -100,9 +100,8 @@ if get_config_value accountname
 then
   accountname="$global_value"
 else
-  read -p "ENTER YOUR ACCOUNT NAME: " -e accountname
+  accountname=$(cat config/config.ini | grep 'producer-name' | awk '{print $3}')
   echo "accountname=$accountname" >> "$config_file"
-  echo ""
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -113,9 +112,20 @@ if get_config_value walletpass
 then
   walletpass="$global_value"
 else
-  read -p "ENTER YOUR WALLET PASSWORD: " -e walletpass
+  walletpass=$(cat walletpass)
   echo "walletpass=$walletpass" >> "$config_file"
-  echo ""
+fi
+
+#----------------------------------------------------------------------------------------------------#
+# GET ACTIVE PRODUCER PUBLIC KEY IF NOT ALREADY ON THE CONFIG FILE                                   #
+#----------------------------------------------------------------------------------------------------#
+
+if get_config_value activeproducerpublickey
+then
+  activeproducerpublickey="$global_value"
+else
+  activeproducerpublickey=$(remcli get table rem rem producers -L $accountname -U $accountname | grep 'producer_key' | awk '{print $2}' | tr -d '"' | tr -d ',')
+  echo "activeproducerpublickey=$activeproducerpublickey" >> "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -126,22 +136,20 @@ if get_config_value producerpermission
 then
   producerpermission="$global_value"
 else
-  read -p "ENTER YOUR KEY PERMISSION: " -e producerpermission
+  producerpermission=$(remcli get account $accountname | grep $activeproducerpublickey | awk '{print $1}' | sed -n 1p)
   echo "producerpermission=$producerpermission" >> "$config_file"
-  echo ""
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# GET PRODUCER PUBLIC KEY IF NOT ALREADY ON THE CONFIG FILE                                          #
+# GET CONFIG PRODUCER PUBLIC KEY IF NOT ALREADY ON THE CONFIG FILE                                   #
 #----------------------------------------------------------------------------------------------------#
 
-if get_config_value producerpublickey
+if get_config_value configproducerpublickey
 then
-  producerpublickey="$global_value"
+  configproducerpublickey="$global_value"
 else
-  read -p "ENTER YOUR PRODUCER PUBLIC KEY: " -e producerpublickey
-  echo "producerpublickey=$producerpublickey" >> "$config_file"
-  echo ""
+  configproducerpublickey=$(cat config/config.ini | grep 'signature-provider' | awk '{print $3}' | sed 's/=.*//')
+  echo "configproducerpublickey=$configproducerpublickey" >> "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -196,7 +204,7 @@ if get_config_value bpm_check_produce_minutes
 then
   bpm_check_produce_minutes="$global_value"
 else
-  read -p "ENTER MINTUES TO AUTO-FAILOVER IF YOUR NOT PRODUCERING?: " -e bpm_check_produce_minutes
+  bpm_check_produce_minutes=5
   echo "bpm_check_produce_minutes=$bpm_check_produce_minutes" >> "$config_file"
   echo ""
 fi
