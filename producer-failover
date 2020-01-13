@@ -142,7 +142,7 @@ fi
 
 if  [ -z "$producerpermission" ]
 then
-  sed -i "/^producerpermission= /s/producerpermission=owner //" "$config_file"
+  sed -i "/^producerpermission=/s/producerpermission=/producerpermission=owner/" "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
