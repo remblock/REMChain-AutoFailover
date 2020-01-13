@@ -142,7 +142,7 @@ fi
 
 if  [ -z "$producerpermission" ]
 then
-  sed -i "/^producerpermission= /s/producerpermission=owner //" $config_file
+  sed -i "/^producerpermission= /s/producerpermission=owner //" "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -169,6 +169,7 @@ then
     telegram_enabled=true
   else
     telegram_enabled=false
+    echo ""
   fi
 else
   if get_user_answer_yn "ENABLE TELEGRAM NOTIFICATIONS"
