@@ -104,6 +104,11 @@ else
   echo "accountname=$accountname" >> "$config_file"
 fi
 
+if  [ -z "$accountname" ]
+then
+  sed -i "/^accountname=/s/accountname=/accountname=<your account name>/" "$config_file"
+fi
+
 #----------------------------------------------------------------------------------------------------#
 # GET WALLET PASSWORD IF NOT ALREADY ON THE CONFIG FILE                                              #
 #----------------------------------------------------------------------------------------------------#
@@ -114,6 +119,11 @@ then
 else
   walletpass=$(cat walletpass)
   echo "walletpass=$walletpass" >> "$config_file"
+fi
+
+if  [ -z "$walletpass" ]
+then
+  sed -i "/^walletpass=/s/walletpass=/walletpass=<your wallet password>/" "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -156,6 +166,11 @@ else
   configproducerpublickey=$(cat config/config.ini | grep 'signature-provider' | awk '{print $3}' | sed 's/=.*//')
   echo "configproducerpublickey=$configproducerpublickey" >> "$config_file"
   echo ""
+fi
+
+if  [ -z "$configproducerpublickey" ]
+then
+  sed -i "/^configproducerpublickey=/s/configproducerpublickey=/configproducerpublickey=<your config producer public key>/" "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -210,6 +225,11 @@ else
   echo "check_last_block_minutes=$check_last_block_minutes" >> "$config_file"
 fi
 
+if  [ -z "$check_last_block_minutes" ]
+then
+  sed -i "/^check_last_block_minutes=/s/check_last_block_minutes=/check_last_block_minutes=5/" "$config_file"
+fi
+
 #----------------------------------------------------------------------------------------------------#
 # USER HEAD BLOCK MINUTE VALUE IF NOT SET IN THE CONFIG FILE                                         #
 #----------------------------------------------------------------------------------------------------#
@@ -220,6 +240,11 @@ then
 else
   check_last_head_block_minutes=3
   echo "check_last_head_block_minutes=$check_last_head_block_minutes" >> "$config_file"
+fi
+
+if  [ -z "$check_last_head_block_minutes" ]
+then
+  sed -i "/^check_last_head_block_minutes=/s/check_last_head_block_minutes=/check_last_head_block_minutes=3/" "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
