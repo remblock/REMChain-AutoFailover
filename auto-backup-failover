@@ -92,7 +92,7 @@ function get_config_value() {
 #****************************************************************************************************#
 
 #----------------------------------------------------------------------------------------------------#
-# GET PRODUCER NAME IF NOT ALREADY ON THE CONFIG FILE                                                #
+# RETRIEVE PRODUCER NAME IF NOT ALREADY SET ON THE CONFIG FILE                                       #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value accountname
@@ -108,7 +108,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# GET WALLET PASSWORD IF NOT ALREADY ON THE CONFIG FILE                                              #
+# RETRIEVE WALLET PASSWORD IF NOT ALREADY SET ON THE CONFIG FILE                                     #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value walletpass
@@ -124,7 +124,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# GET ACTIVE PRODUCER PUBLIC KEY IF NOT ALREADY ON THE CONFIG FILE                                   #
+# RETRIEVE ACTIVE PRODUCER PUBLIC KEY IF NOT ALREADY SET ON THE CONFIG FILE                          #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value activeproducerpublickey
@@ -141,7 +141,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# GET PERMISSION IF NOT ALREADY ON THE CONFIG FILE                                                   #
+# RETRIEVE PERMISSION IF NOT ALREADY SET ON THE CONFIG FILE                                          #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value producerpermission
@@ -157,7 +157,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# GET CONFIG PRODUCER PUBLIC KEY IF NOT ALREADY ON THE CONFIG FILE                                   #
+# RETRIEVE CONFIG PRODUCER PUBLIC KEY IF NOT ALREADY SET ON THE CONFIG FILE                          #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value configproducerpublickey
@@ -174,7 +174,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# GET TELEGRAM DATA IF NOT ALREADY ON THE CONFIG FILE                                                #
+# RETRIEVE TELEGRAM DATA IF NOT ALREADY SET ON THE CONFIG FILE                                       #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value telegram_enabled
@@ -222,7 +222,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# USER BLOCK MINUTE VALUE IF NOT SET IN THE CONFIG FILE                                              #
+# RETRIEVE USERS BLOCK MINUTE VALUE IF NOT ALREADY SET IN THE CONFIG FILE                            #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value check_last_block_minutes
@@ -238,7 +238,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# USER HEAD BLOCK MINUTE VALUE IF NOT SET IN THE CONFIG FILE                                         #
+# RETRIEVE USERS HEAD BLOCK MINUTE VALUE IF NOT ALREADY SET IN THE CONFIG FILE                       #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value check_last_head_block_minutes
@@ -254,7 +254,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# CREATES THE BACKUP FAILOVER SCRIPT IF IT DOESN' EXIST                                              #
+# CREATE THE BACKUP FAILOVER SCRIPT IF IT DOESN' EXIST                                               #
 #----------------------------------------------------------------------------------------------------#
 
 if [ ! -f "$backup_failover_script_path" ]
@@ -263,7 +263,7 @@ cat > "$backup_failover_script_path" << 'DOC'
 #!/usr/bin/env bash
 
 #----------------------------------------------------------------------------------------------------#
-# REGISTER AS A BLOCK PRODUCER AGAIN USING YOUR BACKUP KEYS                                          #
+# REGISTER AGAIN AS A BLOCK PRODUCER USING YOUR BACKUP KEYS                                          #
 #----------------------------------------------------------------------------------------------------#
 
 remcli wallet unlock --password $walletpass > /dev/null 2>&1
@@ -299,7 +299,7 @@ function remnodelogtime_to_epoch() {
 }
 
 #----------------------------------------------------------------------------------------------------#
-# FUNCTION THAT CHECKS WHETHER THE NODE HAS ACTUAL PRODUCED A BLOCK WITHIN THE CONFIGURED MINUTES    #
+# FUNCTION THAT CHECKS WHETHER THE NODE HAS ACTUAL PRODUCED A BLOCK WITHIN THE SET MINUTES           #
 #----------------------------------------------------------------------------------------------------#
 
 function check_produce_minutes() {
