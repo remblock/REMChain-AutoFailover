@@ -303,7 +303,7 @@ function check_produce_minutes() {
         export producerpermission
         export producerpublickey
         bash "$backup_failover_script_path" &>/dev/null
-        send_telegram_message "Producer-Failover script has executed"
+        send_telegram_message "Auto-Producer-Failover script has executed"
       fi
     fi
   fi
