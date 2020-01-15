@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #****************************************************************************************************#
-#                                        AUTO BACKUP FAILOVER                                        #
+#                                        AUTO-BACKUP-FAILOVER                                        #
 #****************************************************************************************************#
 
 #----------------------------------------------------------------------------------------------------#
@@ -281,7 +281,7 @@ function check_produce_minutes() {
         export producerpermission
         export producerpublickey
         bash "$backup_failover_script_path" &>/dev/null
-        telegram_message="Auto-Failover script has executed"
+        telegram_message="Auto-Backup-Failover script has executed"
         send_message=true
       fi
     fi
