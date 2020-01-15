@@ -259,17 +259,16 @@ fi
 #                                       FUNCTIONS DEFINITIONS                                        #
 #****************************************************************************************************#
 
-#----------------------------------------------------------------------------------------------------#
-# SEND THE STRING PARAMETER TO TELEGRAM                                                              #
-#----------------------------------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------------------------------
+# SEND THE STRING PARAMETER TO TELEGRAM
+#-----------------------------------------------------------------------------------------------------
 
-if $send_message
-then  
+function send_telegram_message() {
   if [ ! -z "$telegram_token" ] && [ ! -z "$telegram_chatid" ] && $telegram_enabled
   then
-    curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$telegram_chatid -d text="$telegram_message" &>/dev/null
+    curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$telegram_chatid -d text="$1" &>/dev/null
   fi
-fi
+}
 
 #----------------------------------------------------------------------------------------------------#
 # TRANSLATE THE TIME FORMAT FROM REMCLI FORMATE TO EPOCH TIME                                        #
@@ -304,8 +303,7 @@ function check_produce_minutes() {
         export producerpermission
         export producerpublickey
         bash "$backup_failover_script_path" &>/dev/null
-        telegram_message="Auto-Producer-Failover script has executed"
-        send_message=true
+        send_telegram_message "Producer-Failover script has executed"
       fi
     fi
   fi
@@ -326,17 +324,5 @@ else
   then
     echo $now_epoch > "$create_dir/last_check_epoch.txt"
     check_produce_minutes
-  fi
-fi
-
-#----------------------------------------------------------------------------------------------------#
-# SEND THE STRING PARAMETER TO TELEGRAM                                                              #
-#----------------------------------------------------------------------------------------------------#
-
-if $send_message
-then  
-  if [ ! -z "$telegram_token" ] && [ ! -z "$telegram_chatid" ] && $telegram_enabled
-  then
-    curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$telegram_chatid -d text="$telegram_message" &>/dev/null
   fi
 fi
