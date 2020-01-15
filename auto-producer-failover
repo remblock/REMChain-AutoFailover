@@ -171,8 +171,7 @@ fi
 
 if get_config_value telegram_enabled
 then
-  if
-  telegram_enabled="$global_value"
+  if [ "$global_value" = "true" ]
   then
     telegram_enabled=true
   else
@@ -187,6 +186,9 @@ else
     echo "telegram_enabled=false" >> "$config_file"
     echo ""
   fi
+fi
+if $telegram_enabled
+then
   if get_config_value telegram_token
   then
     telegram_token="$global_value"
@@ -196,6 +198,9 @@ else
     echo "telegram_token=$telegram_token" >> "$config_file"
     echo ""
   fi
+fi
+if $telegram_enabled
+then
   if get_config_value telegram_chatid
   then
     telegram_chatid="$global_value"
