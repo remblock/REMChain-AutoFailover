@@ -4,32 +4,32 @@
 
 ***
 
-### Setup Auto-Producer-Failover:
+### Setup Producer-Failover:
 
 ```
-sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/auto-producer-failover && sudo chmod u+x auto-producer-failover && sudo ./auto-producer-failover
-```
-
-***
-
-### Edit Auto-Producer Failover Config:
-
-```
-nano remblock/auto-producer-failover/config
+sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/producer-failover && sudo chmod u+x producer-failover && sudo ./producer-failover
 ```
 
 ***
 
-### Setup Auto-Backup-Failover:
+### Edit Producer-Failover Config:
 
 ```
-sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/auto-backup-failover && sudo chmod u+x auto-backup-failover && sudo ./auto-backup-failover
+nano remblock/producer-failover/config
 ```
 
 ***
 
-### Edit Auto-Backup Failover Config:
+### Setup Backup-Failover:
 
 ```
-nano remblock/auto-backup-failover/config
+sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/backup-failover && sudo chmod u+x backup-failover && sudo ./backup-failover
+```
+
+***
+
+### Edit Backup-Failover Config:
+
+```
+nano remblock/backup-failover/config
 ```
