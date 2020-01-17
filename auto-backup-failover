@@ -123,7 +123,7 @@ if get_config_value activeproducerpublickey
 then
   activeproducerpublickey="$global_value"
 else
-  activeproducerpublickey=$(remcli get table rem rem producers -L $accountname -U $accountname | grep 'producer_key' | awk '{print $2}' | tr -d '"' | tr -d ',')
+  activeproducerpublickey=$(remcli -u https://remchain.remme.io get table rem rem producers -L $accountname -U $accountname | grep 'producer_key' | awk '{print $2}' | tr -d '"' | tr -d ',')
   echo "activeproducerpublickey=$activeproducerpublickey" >> "$config_file"
 fi
 
@@ -135,7 +135,7 @@ if get_config_value producerpermission
 then
   producerpermission="$global_value"
 else
-  producerpermission=$(remcli get account $accountname | grep $activeproducerpublickey | awk '{print $1}' | sed -n 1p)
+  producerpermission=$(remcli -u https://remchain.remme.io get account $accountname | grep $activeproducerpublickey | awk '{print $1}' | sed -n 1p)
   echo "producerpermission=$producerpermission" >> "$config_file"
 fi
 
@@ -153,7 +153,7 @@ else
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# RETRIEVE TELEGRAM DATA IF NOT ALREADY SET IN THE CONFIG FILE                                       #
+# GET TELEGRAM DATA IF NOT ALREADY ON THE CONFIG FILE                                                #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value telegram_enabled
@@ -197,26 +197,27 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# RETRIEVE USERS BLOCK MINUTE VALUE IF NOT ALREADY SET IN THE CONFIG FILE                            #
+# USER BLOCK MINUTE VALUE IF NOT SET IN THE CONFIG FILE                                              #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value check_last_block_minutes
 then
   check_last_block_minutes="$global_value"
 else
-  check_last_block_minutes=5
+  read -p "ENTER MINTUES TO AUTO-UNREGISTER IF YOU'RE NOT PRODUCING?: " -e check_last_block_minutes
   echo "check_last_block_minutes=$check_last_block_minutes" >> "$config_file"
+  echo ""
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# RETRIEVE USERS HEAD BLOCK MINUTE VALUE IF NOT ALREADY SET IN THE CONFIG FILE                       #
+# USER HEAD BLOCK MINUTE VALUE IF NOT ALREADY SET IN THE CONFIG FILE                                 #
 #----------------------------------------------------------------------------------------------------#
 
 if get_config_value check_last_head_block_minutes
 then
   check_last_head_block_minutes="$global_value"
 else
-  check_last_head_block_minutes=3
+  check_last_head_block_minutes=5
   echo "check_last_head_block_minutes=$check_last_head_block_minutes" >> "$config_file"
 fi
 
@@ -234,7 +235,7 @@ cat > "$backup_failover_script_path" << 'DOC'
 #----------------------------------------------------------------------------------------------------#
 
 remcli wallet unlock --password $walletpass > /dev/null 2>&1
-remcli system regproducer $accountname $configproducerpublickey -x 120 -p $accountname@$producerpermission
+output=$(remcli -u https://remchain.remme.io system regproducer $accountname $configproducerpublickey -x 120 -p $accountname@$producerpermission)
 sudo remnode --config-dir ./config/ --data-dir ./data/ --fix-reversible-blocks --force-all-checks
 
 DOC
@@ -265,47 +266,46 @@ function remnodelogtime_to_epoch() {
 #----------------------------------------------------------------------------------------------------#
 
 function check_produce_minutes() {
-  last_block_date=$(remcli get table rem rem producers -L $accountname -U $accountname | grep 'last_block_time' | awk '{print $2}' | tr -d '"' | tr -d ',')
-  last_block_epoch=$(remnodelogtime_to_epoch "$last_block_date")
-  last_head_block_date=$(remcli get info | grep 'head_block_time' | awk '{print $2}' | tr -d '"' | tr -d ',')
-  last_head_block_epoch=$(remnodelogtime_to_epoch "$last_head_block_date")
-  last_block_minutes_in_seconds="$((check_last_block_minutes * 60))"
-  last_head_block_minutes_in_seconds="$((check_last_head_block_minutes * 60))"
-  if (( ($now_epoch - $last_block_epoch) >= $last_block_minutes_in_seconds )) && (( ($now_epoch - $last_head_block_epoch) <= $last_head_block_minutes_in_seconds )) && (( $configproducerpublickey != $activeproducerpublickey ))
+  #Check if the recover script is already running before starting it again
+  if ! pgrep 'bp-failover' &> /dev/null
   then
-    #Check if the recover script is already running before starting it again
-    if ! pgrep 'bp-failover' &> /dev/null
+    #Execute Failover only if it's registered
+    if [ "$(remcli -u https://remchain.remme.io get table rem rem producers -L $accountname -U $accountname | grep 'is_active' | awk '{print $2}' | tr -d '"' | tr -d ',')" == "1" ]
     then
-      #Execute Failover only if it's registered
-      if [ "$(remcli get table rem rem producers -L $accountname -U $accountname | grep 'is_active' | awk '{print $2}' | tr -d '"' | tr -d ',')" == "1" ]
-      then
-        export accountname
-        export walletpass
-        export producerpermission
-        export producerpublickey
-        bash "$backup_failover_script_path" &>/dev/null
-        telegram_message="Auto-Backup-Failover script has executed"
-        send_message=true
-      fi
+      export accountname
+      export walletpass
+      export producerpermission
+      export producerpublickey
+      bash "$backup_failover_script_path" &>/dev/null
+      telegram_message="Auto-Backup-Failover script has executed"
+      send_message=true
     fi
   fi
+fi
 }
 
 #----------------------------------------------------------------------------------------------------#
 # MAIN PART OF THE SCRIPT                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
-if [ ! -f "$create_dir/last_check_epoch.txt" ]
+if [ ! -f "/root/check_backup_failover" ]
 then
-  echo $now_epoch > "$create_dir/last_check_epoch.txt"
+  cat << EOF > "/root/check_backup_failover" 
+true
+EOF
 else
-  last_block_minutes_in_seconds="$((check_last_block_minutes * 60))"
-  last_head_block_minutes_in_seconds="$((check_last_head_block_minutes * 60))"
-  last_check_epoch=$(cat "$create_dir/last_check_epoch.txt")
-  if (( ($now_epoch - $last_block_epoch) >= $last_block_minutes_in_seconds )) && (( ($now_epoch - $last_head_block_epoch) <= $last_head_block_minutes_in_seconds )) && (( $configproducerpublickey != $activeproducerpublickey ))
+  if grep "true" "check_backup_failover"
   then
-    echo $now_epoch > "$create_dir/last_check_epoch.txt"
-    check_produce_minutes
+    last_block_date=$(remcli -u https://remchain.remme.io get table rem rem producers -L $accountname -U $accountname | grep 'last_block_time' | awk '{print $2}' | tr -d '"' | tr -d ',')
+    last_block_epoch=$(remnodelogtime_to_epoch "$last_block_date")
+    last_head_block_date=$(remcli -u https://remchain.remme.io get info | grep 'head_block_time' | awk '{print $2}' | tr -d '"' | tr -d ',')
+    last_head_block_epoch=$(remnodelogtime_to_epoch "$last_head_block_date")
+    last_block_minutes_in_seconds=$(( (check_last_block_minutes * 60) - 60 ))
+    last_head_block_minutes_in_seconds=$(( (check_last_head_block_minutes * 60) - 60 ))
+    if (( ($now_epoch - $last_block_epoch) >= $last_block_minutes_in_seconds )) && (( ($now_epoch - $last_head_block_epoch) <= $last_head_block_minutes_in_seconds )) && (( $configproducerpublickey != $activeproducerpublickey ))
+    then
+      check_produce_minutes
+    fi
   fi
 fi
 
