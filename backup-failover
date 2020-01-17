@@ -18,12 +18,12 @@ fi
 # CONFIGURATION VARIABLES                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
-create_dir="/root/remblock/auto-backup-failover"
-config_file="/root/remblock/auto-backup-failover/config"
-backup_failover_script_path="/root/remblock/auto-backup-failover/bp-failover"
+create_dir="/root/remblock/backup-failover"
+config_file="/root/remblock/backup-failover/config"
+backup_failover_script_path="/root/remblock/backup-failover/bp-failover"
 #PATH to used commands
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
-cron_cmd="/root/remblock/auto-backup-failover/auto-backup-failover"
+cron_cmd="/root/remblock/backup-failover/backup-failover"
 now_epoch="$(date +%s)"
 
 #----------------------------------------------------------------------------------------------------#
@@ -204,7 +204,7 @@ if get_config_value check_last_block_minutes
 then
   check_last_block_minutes="$global_value"
 else
-  read -p "ENTER MINTUES TO AUTO-UNREGISTER IF YOU'RE NOT PRODUCING?: " -e check_last_block_minutes
+  read -p "ENTER MINTUES TO AUTO-FAILOVER IF YOU'RE NOT PRODUCING?: " -e check_last_block_minutes
   echo "check_last_block_minutes=$check_last_block_minutes" >> "$config_file"
   echo ""
 fi
