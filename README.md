@@ -18,8 +18,6 @@ sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/pro
 nano remblock/producer-failover/config
 ```
 
-***
-
 ### Edit Producer-Failover (Enable/Disable):
 
 ```
@@ -43,8 +41,6 @@ sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/bac
 ```
 nano remblock/backup-failover/config
 ```
-
-***
 
 ### Edit Backup-Failover (Enable/Disable):
 
