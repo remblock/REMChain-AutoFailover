@@ -20,6 +20,16 @@ nano remblock/producer-failover/config
 
 ***
 
+### Edit Producer-Failover (Enable/Disable):
+
+```
+nano /root/check_producer_failover
+```
+
+#### Edit file to "true" to enable and "false" to disable
+
+***
+
 ### Setup Backup-Failover:
 
 ```
@@ -33,3 +43,13 @@ sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/bac
 ```
 nano remblock/backup-failover/config
 ```
+
+***
+
+### Edit Backup-Failover (Enable/Disable):
+
+```
+nano /root/check_backup_failover
+```
+
+#### Edit file to "true" to enable and "false" to disable
