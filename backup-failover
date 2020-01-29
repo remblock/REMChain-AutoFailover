@@ -180,7 +180,8 @@ fi
 if get_config_value configproducerpublickey
 then
   configproducerpublickey="$global_value"
-else
+elif [ -z "$global_value" ]
+then
   configproducerpublickey=$(cat config/config.ini | grep 'signature-provider' | awk '{print $3}' | sed 's/=.*//')
   echo "configproducerpublickey=$configproducerpublickey" >> "$config_file"
   echo ""
