@@ -217,6 +217,7 @@ then
     telegram_enabled=false
   fi
 else
+  echo ""
   if get_user_answer_yn "ENABLE TELEGRAM NOTIFICATIONS"
   then
     telegram_enabled=true
@@ -224,7 +225,6 @@ else
   else
     telegram_enabled=false
     echo "telegram_enabled=false" >> "$config_file"
-    echo ""
   fi
 fi
 if $telegram_enabled
@@ -232,19 +232,20 @@ then
   if get_config_value telegram_token
   then
     telegram_token="$global_value"
-  else
+  elif [ -z "$global_value" ]
+  then
     echo ""
     read -p "ENTER YOUR TELEGRAM TOKEN API: " -e telegram_token
     echo "telegram_token=$telegram_token" >> "$config_file"
-    echo ""
   fi
   if get_config_value telegram_chatid
   then
     telegram_chatid="$global_value"
-  else
+  elif [ -z "$global_value" ]
+  then
+    echo ""
     read -p "ENTER YOUR TELEGRAM CHAT ID: " -e telegram_chatid
     echo "telegram_chatid=$telegram_chatid" >> "$config_file"
-    echo ""
   fi
 fi
 
@@ -255,10 +256,12 @@ fi
 if get_config_value check_last_block_minutes
 then
   check_last_block_minutes="$global_value"
-else
-  read -p "ENTER MINTUES TO AUTO-FAILOVER IF YOU'RE NOT PRODUCING?: " -e check_last_block_minutes
-  echo "check_last_block_minutes=$check_last_block_minutes" >> "$config_file"
+elif [ -z "$global_value" ]
+then
   echo ""
+  read -p "ENTER MINTUES TO AUTO-FAILOVER IF YOU'RE NOT PRODUCING?: " -e check_last_block_minutes
+  echo ""
+  echo "check_last_block_minutes=$check_last_block_minutes" >> "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -268,7 +271,8 @@ fi
 if get_config_value check_last_head_block_minutes
 then
   check_last_head_block_minutes="$global_value"
-else
+elif [ -z "$global_value" ]
+then
   check_last_head_block_minutes=5
   echo "check_last_head_block_minutes=$check_last_head_block_minutes" >> "$config_file"
 fi
