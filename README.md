@@ -48,4 +48,4 @@ nano remblock/backup-failover/config
 nano /root/check_backup_failover
 ```
 
-#### Edit file to "true" to enable and "false" to disable
+#### Edit file to "on" to enable and "off" to disable
