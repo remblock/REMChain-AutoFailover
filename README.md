@@ -21,7 +21,7 @@ nano remblock/producer-failover/config
 ### Edit Producer-Failover (Enable/Disable):
 
 ```
-nano /root/check_producer_failover
+nano /root/check-producer-failover
 ```
 
 #### Edit file to "true" to enable and "false" to disable
@@ -45,7 +45,7 @@ nano remblock/backup-failover/config
 ### Edit Backup-Failover (Enable/Disable):
 
 ```
-nano /root/check_backup_failover
+nano /root/check-backup-failover
 ```
 
 #### Edit file to "on" to enable and "off" to disable
