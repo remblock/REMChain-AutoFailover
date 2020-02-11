@@ -342,10 +342,10 @@ then
 else 
   if ! grep "^check_last_head_block_minutes" "$config_file" > /dev/null 2>&1
   then
-    check_last_head_block_minutes=5
+    check_last_head_block_minutes=6
     printf -- "%s\n" "check_last_head_block_minutes=$check_last_head_block_minutes" >> "$config_file"
   else
-    check_last_head_block_minutes=5
+    check_last_head_block_minutes=6
     sed -i "s/check_last_head_block_minutes=/check_last_head_block_minutes=$check_last_head_block_minutes/g" "$config_file"
   fi
 fi
