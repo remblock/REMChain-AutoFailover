@@ -406,8 +406,11 @@ on|On|ON) last_block_date=$(remcli -u https://remchain.remme.io get table rem re
              if [ "$active" -eq "1" ]
              then
                remcli wallet unlock --password $walletpassword > /dev/null 2>&1
-               remcli -u https://remchain.remme.io system regproducer $accountname $configproducerpublickey -x 120 -p $accountname@$producerpermission          telegram_message="Auto-Producer-Failover script has executed"
-               sudo remnode --config-dir ./config/ --data-dir ./data/ --fix-reversible-blocks --force-all-checks
+               remcli -u https://remchain.remme.io system regproducer $accountname $configproducerpublickey -x 120 -p $accountname@$producerpermission
+               pkill remnode
+               remnode --config-dir ./config/ --data-dir ./data/ >> remnode.log 2>&1 &
+               remnode --config-dir ./config/ --data-dir ./data/ --fix-reversible-blocks --force-all-checks
+               telegram_message="Auto-Producer-Failover script has executed"
                curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$telegram_chatid -d text="$telegram_message" &>/dev/null
              fi
            fi
