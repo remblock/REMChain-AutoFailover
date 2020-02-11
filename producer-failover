@@ -18,11 +18,12 @@ fi
 # CONFIGURATION VARIABLES                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
+now_epoch="$(date +%s)"
+state_file="/root/check-producer-failover
 create_dir="/root/remblock/producer-failover"
 config_file="/root/remblock/producer-failover/config"
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 cron_cmd="/root/remblock/producer-failover/producer-failover"
-now_epoch="$(date +%s)"
 
 #----------------------------------------------------------------------------------------------------#
 # REMOVE EXISTING CRONTAB LINE IF IT EXIST WHILE CONFIG DOESN'T                                      #
