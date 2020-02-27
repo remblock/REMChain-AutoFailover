@@ -125,6 +125,7 @@ then
     echo ""
     read -p "ENTER YOUR PRODUCER NAME: " -e accountname
     sed -i "s/accountname=/accountname=$accountname/g" "$config_file"
+    echo ""
   fi
 fi
 
@@ -149,27 +150,9 @@ if grep "^walletpassword" "$config_file" > /dev/null 2>&1
 then
   if [ -z "$walletpassword" ]
   then
-    echo ""
     read -p "ENTER YOUR WALLET PASSWORD: " -e walletpassword
     sed -i "s/walletpassword=/walletpassword=$walletpassword/g" "$config_file"
-  fi
-fi
-
-#----------------------------------------------------------------------------------------------------#
-# RETRIEVE BACKUP PRODUCER PUBLIC KEY IF NOT ALREADY SET IN THE CONFIG FILE                          #
-#----------------------------------------------------------------------------------------------------#
-
-if get_config_value backupproducerpublickey
-then
-  backupproducerpublickey="$global_value"
-else
-  if ! grep "^backupproducerpublickey" "$config_file" > /dev/null 2>&1
-  then
     echo ""
-    read -p "ENTER YOUR BACKUP PRODUCER PUBLIC KEY: " -e backupproducerpublickey  
-    printf -- "%s\n" "backupproducerpublickey=$backupproducerpublickey" >> "$config_file"
-  else
-    sed -i "s/backupproducerpublickey=/backupproducerpublickey=$backupproducerpublickey/g" "$config_file"
   fi
 fi
 
@@ -203,9 +186,9 @@ if grep "^activeproducerpublickey" "$config_file" > /dev/null 2>&1
 then
   if [ -z "$activeproducerpublickey" ]
   then
-    echo ""
-    read -p "ENTER YOUR PRODUCER PUBLIC KEY: " -e activeproducerpublickey
+    read -p "ENTER YOUR CURRENT ACTIVE PUBLIC KEY: " -e activeproducerpublickey
     sed -i "s/activeproducerpublickey=/activeproducerpublickey=$activeproducerpublickey/g" "$config_file"
+    echo ""  
   fi
 fi
 
@@ -238,35 +221,34 @@ if grep "^producerpermission" "$config_file" > /dev/null 2>&1
 then
   if [ -z "$producerpermission" ]
   then
-    echo ""
-    read -p "ENTER YOUR PRODUCER PERMISSION: " -e producerpermission
+    read -p "ENTER YOUR PRODUCER KEY PERMISSION: " -e producerpermission
     sed -i "s/producerpermission=/producerpermission=$producerpermission/g" "$config_file"
+    echo ""  
   fi
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# RETRIEVE CONFIG PRODUCER PUBLIC KEY IF NOT ALREADY SET IN THE CONFIG FILE                          #
+# RETRIEVE BACKUP PRODUCER PUBLIC KEY IF NOT ALREADY SET IN THE CONFIG FILE                          #
 #----------------------------------------------------------------------------------------------------#
 
-if get_config_value configproducerpublickey
+if get_config_value backupproducerpublickey
 then
-  configproducerpublickey="$global_value"
+  backupproducerpublickey="$global_value"
 else
-  if ! grep "^configproducerpublickey" "$config_file" > /dev/null 2>&1
+  if ! grep "^backupproducerpublickey" "$config_file" > /dev/null 2>&1
   then
-    configproducerpublickey=$(cat config/config.ini | grep 'signature-provider' | awk '{print $3}' | sed 's/=.*//')
-    printf -- "%s\n" "configproducerpublickey=$configproducerpublickey" >> "$config_file"
+    backupproducerpublickey=$(cat config/config.ini | grep 'signature-provider' | awk '{print $3}' | sed 's/=.*//')
+    printf -- "%s\n" "backupproducerpublickey=$backupproducerpublickey" >> "$config_file"
   else
-    sed -i "s/configproducerpublickey=/configproducerpublickey=$configproducerpublickey/g" "$config_file"
+    sed -i "s/backupproducerpublickey=/backupproducerpublickey=$backupproducerpublickey/g" "$config_file"
   fi
 fi
-if grep "^configproducerpublickey" "$config_file" > /dev/null 2>&1
+if grep "^backupproducerpublickey" "$config_file" > /dev/null 2>&1
 then
-  if [ -z "$configproducerpublickey" ]
+  if [ -z "$backupproducerpublickey" ]
   then
-    echo ""
-    read -p "ENTER YOUR PRODUCER BACKUP PUBLIC KEY: " -e configproducerpublickey
-    sed -i "s/configproducerpublickey=/configproducerpublickey=$configproducerpublickey/g" "$config_file"
+    read -p "ENTER YOUR BACKUP PUBLIC KEY: " -e backupproducerpublickey  
+    sed -i "s/backupproducerpublickey=/backupproducerpublickey=$backupproducerpublickey/g" "$config_file"
     echo ""
   fi
 fi
