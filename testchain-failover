@@ -22,8 +22,8 @@ now_epoch="$(date +%s)"
 state_file="/root/check-failover"
 create_dir="/root/remblock/testchain-failover"
 config_file="/root/remblock/testchain-failover/config"
-PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 cron_cmd="/root/remblock/testchain-failover/testchain-failover"
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 
 #----------------------------------------------------------------------------------------------------#
 # REMOVE EXISTING CRONTAB LINE IF IT EXIST WHILE CONFIG DOESN'T                                      #
