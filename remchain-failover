@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #****************************************************************************************************#
-#                                        AUTO-PRODUCER-FAILOVER                                      #
+#                                       AUTO-PRODUCER-FAILOVER                                       #
 #****************************************************************************************************#
 
 #----------------------------------------------------------------------------------------------------#
@@ -19,11 +19,11 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 now_epoch="$(date +%s)"
-state_file="/root/check-producer-failover
-create_dir="/root/remblock/producer-failover"
-config_file="/root/remblock/producer-failover/config"
+state_file="/root/check-failover"
+create_dir="/root/remblock/failover"
+config_file="/root/remblock/remchain-failover/config"
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
-cron_cmd="/root/remblock/producer-failover/producer-failover"
+cron_cmd="/root/remblock/failover/remchain-failover"
 
 #----------------------------------------------------------------------------------------------------#
 # REMOVE EXISTING CRONTAB LINE IF IT EXIST WHILE CONFIG DOESN'T                                      #
@@ -42,17 +42,6 @@ if [ ! -d "$create_dir" ]
 then
   mkdir -p "$create_dir"
   cp -p "$0" "$create_dir"
-fi
-
-#----------------------------------------------------------------------------------------------------#
-# CREATE CONFIG FILE IF IT DOESN'T EXIST                                                             #
-#----------------------------------------------------------------------------------------------------#
-
-if [ ! -f "$config_file" ]
-then
-  echo "#Configuration file for the failover script" > "$config_file"
-  echo "#Make the entries as variable=value" >> "$config_file"
-  echo " " >> "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -92,7 +81,7 @@ function get_config_value() {
 
 if [ ! -f "$config_file" ]
 then
-  echo "#Configuration file for the unregprod script" > "$config_file"
+  echo "#Configuration file for the failover script" > "$config_file"
   echo "#Make the entries as variable=value" >> "$config_file"
   echo " " >> "$config_file"
 fi
