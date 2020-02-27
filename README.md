@@ -4,48 +4,24 @@
 
 ***
 
-### Setup Producer-Failover:
+### Setup REMChain-Failover:
 
 ```
-sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/producer-failover && sudo chmod u+x producer-failover && sudo ./producer-failover
-```
-
-***
-
-### Edit Producer-Failover Config:
-
-```
-nano remblock/producer-failover/config
-```
-
-### Edit Producer-Failover (Enable/Disable):
-
-```
-nano /root/check-producer-failover
-```
-
-#### Edit file to "true" to enable and "false" to disable
-
-***
-
-### Setup Backup-Failover:
-
-```
-sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/backup-failover && sudo chmod u+x backup-failover && sudo ./backup-failover
+sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/remchain-failover && sudo chmod u+x remchain-failover && sudo ./remchain-failover
 ```
 
 ***
 
-### Edit Backup-Failover Config:
+### Edit REMChain-Failover Config:
 
 ```
-nano remblock/backup-failover/config
+nano remblock/remchain-failover/config
 ```
 
-### Edit Backup-Failover (Enable/Disable):
+### Edit REMChain-Failover (Enable/Disable):
 
 ```
-nano /root/check-backup-failover
+nano /root/check-failover
 ```
 
 #### Edit file to "on" to enable and "off" to disable
