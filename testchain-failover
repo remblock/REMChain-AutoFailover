@@ -20,6 +20,7 @@ fi
 
 now_epoch="$(date +%s)"
 state_file="/root/check-failover"
+remnode_log_file="/root/remnode.log"
 create_dir="/root/remblock/testchain-failover"
 config_file="/root/remblock/testchain-failover/config"
 cron_cmd="/root/remblock/testchain-failover/testchain-failover"
