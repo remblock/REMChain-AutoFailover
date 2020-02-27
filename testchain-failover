@@ -367,9 +367,9 @@ function remnodelogtime_to_epoch() {
 
 switch=$(cat "$state_file")
 
-echo "================================================================================================"
+echo "============================================================================================"
 echo "Producer-Failover script is '$switch', to disable script set file '$state_file' to 'off'"
-echo "================================================================================================"
+echo "============================================================================================"
 echo ""
 
 case "$switch" in
@@ -414,7 +414,8 @@ on|On|ON) last_log_block_date=$(cat -v $remnode_log_file | grep "signed by $acco
               fi
             fi
           fi
-        ;;
+        fi
+      ;;
 
 off|Off|OFF) exit
              ;;
