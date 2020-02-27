@@ -171,7 +171,7 @@ else
     if [ -z "$activeproducerpublickey" ]
     then
       activeproducerpublickey=$(remcli get table rem rem producers -L $accountname -U $accountname | grep 'producer_key' | awk '{print $2}' | tr -d '"' | tr -d ',')
-    fi  
+    fi
   else
     activeproducerpublickey=$(remcli -u https://testchain.remme.io get table rem rem producers -L $accountname -U $accountname | grep 'producer_key' | awk '{print $2}' | tr -d '"' | tr -d ',')
     sed -i "s/activeproducerpublickey=/activeproducerpublickey=$activeproducerpublickey/g" "$config_file"
@@ -188,7 +188,7 @@ then
   then
     read -p "ENTER YOUR CURRENT ACTIVE PUBLIC KEY: " -e activeproducerpublickey
     sed -i "s/activeproducerpublickey=/activeproducerpublickey=$activeproducerpublickey/g" "$config_file"
-    echo ""  
+    echo ""
   fi
 fi
 
@@ -223,7 +223,7 @@ then
   then
     read -p "ENTER YOUR PRODUCER KEY PERMISSION: " -e producerpermission
     sed -i "s/producerpermission=/producerpermission=$producerpermission/g" "$config_file"
-    echo ""  
+    echo ""
   fi
 fi
 
@@ -247,7 +247,7 @@ if grep "^backupproducerpublickey" "$config_file" > /dev/null 2>&1
 then
   if [ -z "$backupproducerpublickey" ]
   then
-    read -p "ENTER YOUR BACKUP PUBLIC KEY: " -e backupproducerpublickey  
+    read -p "ENTER YOUR BACKUP PUBLIC KEY: " -e backupproducerpublickey
     sed -i "s/backupproducerpublickey=/backupproducerpublickey=$backupproducerpublickey/g" "$config_file"
     echo ""
   fi
@@ -296,7 +296,7 @@ then
       read -p "ENTER YOUR TELEGRAM CHAT ID: " -e telegram_chatid
       printf -- "%s\n" "telegram_chatid=$telegram_chatid" >> "$config_file"
     else
-      sed -i "s/telegram_token=/telegram_token=$telegram_token/g" "$config_file" 
+      sed -i "s/telegram_token=/telegram_token=$telegram_token/g" "$config_file"
     fi
   fi
 fi
@@ -362,7 +362,7 @@ on|On|ON) last_log_block_date=$(cat -v $remnode_log_file | grep "signed by $acco
           if [ -z "$active" ]
           then
             active=$(remcli get table rem rem producers -L $accountname -U $accountname | grep 'is_active' | awk '{print $2}' | tr -d '"' | tr -d ',')
-          fi  
+          fi
           if [ -z "$last_block_date" ]
           then
             last_block_date=$(remcli get table rem rem producers -L $accountname -U $accountname | grep 'last_block_time' | awk '{print $2}' | tr -d '"' | tr -d ',')
@@ -379,9 +379,9 @@ on|On|ON) last_log_block_date=$(cat -v $remnode_log_file | grep "signed by $acco
                 remcli wallet unlock --password $walletpassword > /dev/null 2>&1
                 remcli system regproducer $accountname $backupproducerpublickey -x 120 -p $accountname@$producerpermission
                 remnode_pid=$(pgrep remnode)
-                if [ ! -z "$remnode_pid" ]; 
+                if [ ! -z "$remnode_pid" ];
                 then
-                  if ps -p $remnode_pid > /dev/null; 
+                  if ps -p $remnode_pid > /dev/null;
                   then
                     kill -SIGINT $remnode_pid
                   fi
