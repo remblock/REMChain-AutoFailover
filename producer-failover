@@ -452,7 +452,7 @@ on|On|ON) last_log_block_date=$(cat -v $remnode_log_file | grep "signed by $acco
             then
               if (( ($now_epoch - $last_log_block_epoch) >= $config_minutes_in_seconds ))
               then
-                if [ "$active" -eq "1" ]
+                if [ "$active" -eq "1" && "$activeproducerpublickey" -eq "$backupproducerpublickey" ]
                 then
                   remcli wallet unlock --password $walletpassword > /dev/null 2>&1
                   remcli system regproducer $accountname $configproducerpublickey -x 120 -p $accountname@$producerpermission
