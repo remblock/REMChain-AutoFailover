@@ -396,8 +396,7 @@ on|On|ON) last_log_block_date=$(cat -v $remnode_log_file | grep "signed by $acco
               fi
             fi
           fi
-        fi
-      ;;
+        ;;
 
 off|Off|OFF) exit
              ;;
