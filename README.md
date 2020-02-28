@@ -1,6 +1,6 @@
 # REMChain-Automated-Failover
 
-#### These scripts will help a REMChain block producer perform a failover, in the event they fail to produce blocks within a specified timeframe. The Producer-Failover script should be activated on your primary server and the Backup-Failover on your secondary server.
+#### These scripts will help block producers on REMChain perform a failovers, in the event they fail to produce blocks within a specified timeframe. The REMChain-Failover script should be activated on your backup server.
 
 ***
 
