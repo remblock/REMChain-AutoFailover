@@ -207,14 +207,14 @@ else
     printf -- "%s\n" "producerpermission=$producerpermission" >> "$config_file"
     if [ -z "$producerpermission" ]
     then
-      producerpermission=$(remcli -u get account $accountname | grep $activeproducerpublickey | awk '{print $1}' | sed -n 1p)
+      producerpermission=$(remcli get account $accountname | grep $activeproducerpublickey | awk '{print $1}' | sed -n 1p)
     fi
   else
     producerpermission=$(remcli -u https://testchain.remme.io get account $accountname | grep $activeproducerpublickey | awk '{print $1}' | sed -n 1p)
     sed -i "s/producerpermission=/producerpermission=$producerpermission/g" "$config_file"
     if [ -z "$producerpermission" ]
     then
-      producerpermission=$(remcli -u get account $accountname | grep $activeproducerpublickey | awk '{print $1}' | sed -n 1p)
+      producerpermission=$(remcli get account $accountname | grep $activeproducerpublickey | awk '{print $1}' | sed -n 1p)
     fi
   fi
 fi
