@@ -419,7 +419,7 @@ on|On|ON) last_log_block_date=$(cat -v $remnode_log_file | grep "signed by $acco
                 fi
                 remnode --config-dir ./config/ --data-dir ./data/ >> remnode.log 2>&1 &
                 remnode --config-dir ./config/ --data-dir ./data/ --fix-reversible-blocks --force-all-checks
-                telegram_message="Auto-Producer-Failover script has executed"
+                telegram_message="Producer-Failover script has executed"
                 curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$telegram_chatid -d text="$telegram_message" &>/dev/null
               fi
             fi
