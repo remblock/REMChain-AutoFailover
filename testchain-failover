@@ -380,9 +380,9 @@ on|On|ON) last_log_block_date=$(cat -v $remnode_log_file | grep "signed by $acco
                 remcli wallet unlock --password $walletpassword > /dev/null 2>&1
                 remcli system regproducer $accountname $backupproducerpublickey -x 120 -p $accountname@$producerpermission
                 remnode_pid=$(pgrep remnode)
-                if [ ! -z "$remnode_pid" ];
+                if [ ! -z "$remnode_pid" ]
                 then
-                  if ps -p $remnode_pid > /dev/null;
+                  if ps -p $remnode_pid > /dev/null
                   then
                     kill -SIGINT $remnode_pid
                   fi
