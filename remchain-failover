@@ -176,6 +176,7 @@ else
       if [ -z "$activeproducerpublickey" ]
       then
         activeproducerpublickey=$(remcli get table rem rem producers -L $accountname -U $accountname | grep 'producer_key' | awk '{print $2}' | tr -d '"' | tr -d ',')
+        sed -i "s/activeproducerpublickey=/activeproducerpublickey=$activeproducerpublickey/g" "$config_file"
       fi
     fi
   else
@@ -188,6 +189,7 @@ else
       if [ -z "$activeproducerpublickey" ]
       then
         activeproducerpublickey=$(remcli get table rem rem producers -L $accountname -U $accountname | grep 'producer_key' | awk '{print $2}' | tr -d '"' | tr -d ',')
+        sed -i "s/activeproducerpublickey=/activeproducerpublickey=$activeproducerpublickey/g" "$config_file"
       fi
     fi
   fi
@@ -221,6 +223,7 @@ else
       if [ -z "$producerpermission" ]
       then
         producerpermission=$(remcli get account $accountname | grep $activeproducerpublickey | awk '{print $1}' | sed -n 1p)
+        sed -i "s/producerpermission=/producerpermission=$producerpermission/g" "$config_file"
       fi
     fi
   else
@@ -233,6 +236,7 @@ else
       if [ -z "$producerpermission" ]
       then
         producerpermission=$(remcli get account $accountname | grep $activeproducerpublickey | awk '{print $1}' | sed -n 1p)
+        sed -i "s/producerpermission=/producerpermission=$producerpermission/g" "$config_file"
       fi
     fi
   fi
