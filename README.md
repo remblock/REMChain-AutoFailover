@@ -12,6 +12,14 @@ sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/rem
 
 ***
 
+### Setup Testchain-Failover:
+
+```
+sudo wget https://github.com/remblock/REMChain-Automated-Failover/raw/master/testchain-failover && sudo chmod u+x testchain-failover && sudo ./testchain-failover
+```
+
+***
+
 ### Edit REMChain-Failover Config:
 
 ```
